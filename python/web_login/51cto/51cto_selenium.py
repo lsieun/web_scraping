@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import sys
+from config_file import *
 
 
 def get_driver(browser="phantomjs"):
@@ -20,6 +21,10 @@ def get_driver(browser="phantomjs"):
         driver_instance = webdriver.PhantomJS("/usr/local/phantomjs/bin/phantomjs")
     driver_instance.set_window_size(1902, 1080)
     return driver_instance
+
+
+# driver = get_driver(browser="phantomjs")
+driver = get_driver(browser="headless-chrome")
 
 
 def login():
@@ -93,8 +98,6 @@ def quit_driver():
 
 
 if __name__ == '__main__':
-    driver = get_driver(browser="headless-chrome")
-    # driver = get_driver(browser="phantomjs")
     login()
     home()
     down()
