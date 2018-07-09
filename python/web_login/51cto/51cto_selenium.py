@@ -31,9 +31,9 @@ def login():
     try:
         driver.get(url="http://home.51cto.com/index")
         username = driver.find_element_by_id("loginform-username")
-        username.send_keys("your_username")  # 用戶名
+        username.send_keys(CTO51_USERNAME)  # 用戶名
         password = driver.find_element_by_id("loginform-password")
-        password.send_keys("your_password")  # 密碼
+        password.send_keys(CTO51_PASSWORD)  # 密碼
         form = driver.find_element_by_id("login-form")
         form.submit()
         time.sleep(5)
