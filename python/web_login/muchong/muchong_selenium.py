@@ -34,9 +34,9 @@ def get_answer(first_num, second_num, oper_str):
     elif oper_str == "减":
         return first_num - second_num
     elif oper_str == "乘以":
-        return first_num * second_num
+        return int(first_num * second_num)
     else:
-        return first_num / second_num
+        return int(first_num / second_num)
 
 
 def login():
