@@ -35,6 +35,10 @@ def view_list(lst: list) -> None:
         print(item)
 
 
+def view_tuple(t: tuple) -> None:
+    print(t)
+
+
 def view(o: object, display_name="object") -> None:
     if o is None:
         print("object is None")
@@ -48,6 +52,10 @@ def view(o: object, display_name="object") -> None:
         view_list(o)
     elif t is set:
         view_set(o)
+    elif t is tuple:
+        view_tuple(o)
+    elif t is str:
+        print(o)
     else:
         print("There is something Wrong!!!")
     print("="*66)

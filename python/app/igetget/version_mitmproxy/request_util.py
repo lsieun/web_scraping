@@ -104,7 +104,16 @@ def generate_sign(encoded_path: str, method: str,
     return base64_str
 
 
-def post(url: str, post_data: dict, content_type: str, verbose=True) -> str:
+def get_sign(token: str) -> str:
+    param_string = "dc923c14b6419aca91d8bb1e2e5e35e4"
+    sb = "appid" + "1632426125495894021" + ","
+    sb += "token" + token + "," + param_string
+    md5_str = lsieun_util.make_md5(sb)
+    sign = md5_str[2:18]
+    return sign
+
+
+def post(url: str, post_data: dict, content_type: str, method=igetget_config.METHOD_POST, verbose=True) -> str:
     # （1）請求的url和data
     parse_result = urlparse(url)
     encoded_path = parse_result.path
@@ -125,7 +134,6 @@ def post(url: str, post_data: dict, content_type: str, verbose=True) -> str:
     # （2）請求headers
     headers = get_raw_headers()
     token = headers.get("G-Auth-Token")
-    method = igetget_config.METHOD_POST
     timestamp = current_timestamp()
     nonce = get_nonce()
     sign = generate_sign(encoded_path, method, encoded_query, content_type, payload, timestamp, nonce, token)
@@ -140,6 +148,27 @@ def post(url: str, post_data: dict, content_type: str, verbose=True) -> str:
     response_headers = r.headers
     response_text = r.text
     if verbose:
+        print("status_code = {}".format(status_code))
+        print("response_headers = {}".format(response_headers))
+        print("response_text = {}".format(response_text))
+        print("=" * 60)
+
+    return response_text
+
+
+def get(url, verbose=True):
+    headers = get_raw_headers()
+    headers.pop("G-Auth-Sign")
+    headers.pop("X-UID")
+    headers.pop("G-Auth-Ts")
+    headers.pop("G-Auth-Token")
+    headers.pop("G-Auth-Nonce")
+    r = requests.get(url, headers)
+    status_code = r.status_code
+    response_headers = r.headers
+    response_text = r.text
+    if verbose:
+        print("url = {}".format(url))
         print("status_code = {}".format(status_code))
         print("response_headers = {}".format(response_headers))
         print("response_text = {}".format(response_text))

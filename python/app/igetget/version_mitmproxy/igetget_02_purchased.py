@@ -29,27 +29,8 @@ def get_group_data(group_type: int, order_name: str) -> list:
     return lst
 
 
-def get_category_list(group_type):
-    url = "https://entree.igetget.com/purchased/v1/category/lists"
-    page = 1
 
-    file_path = "files/course{}.json".format(group_type)
-    course_list = []
-    while True:
-        post_data = {
-            "group_type": group_type,
-            "order_name": "open",
-            "page": page
-        }
 
-        lst = request_util.get_data_list(url, post_data)
-        if len(lst) < 1: break
-        for item in lst:
-            json_str = json.dumps(item)
-            course_list.append(json_str)
-        page += 1
-
-    lsieun_util.write_file(course_list, file_path)
 
 
 def get_purchased_column():
