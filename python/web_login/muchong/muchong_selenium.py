@@ -36,7 +36,7 @@ def get_answer(first_num, second_num, oper_str):
     elif oper_str == "乘以":
         return int(first_num * second_num)
     else:
-        return int(first_num / second_num)
+        return int(first_num // second_num)
 
 
 def login():
